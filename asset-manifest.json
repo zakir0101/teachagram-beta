@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/teachagram-beta/static/css/main.841f1cf9.css",
+    "main.css": "/teachagram-beta/static/css/main.912e1f66.css",
     "main.js": "/teachagram-beta/static/js/main.881032fe.js",
     "static/js/787.a2bf511c.chunk.js": "/teachagram-beta/static/js/787.a2bf511c.chunk.js",
     "index.html": "/teachagram-beta/index.html",
-    "main.841f1cf9.css.map": "/teachagram-beta/static/css/main.841f1cf9.css.map",
+    "main.912e1f66.css.map": "/teachagram-beta/static/css/main.912e1f66.css.map",
     "main.881032fe.js.map": "/teachagram-beta/static/js/main.881032fe.js.map",
     "787.a2bf511c.chunk.js.map": "/teachagram-beta/static/js/787.a2bf511c.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.841f1cf9.css",
+    "static/css/main.912e1f66.css",
     "static/js/main.881032fe.js"
   ]
 }
