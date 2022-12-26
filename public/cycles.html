@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Teachegram</title>
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+    <link rel="stylesheet" href="../src/App.css">
+    <link rel="stylesheet" href="../src/Appbar.css">
+    <link rel="stylesheet" href="../src/ClassWindow.css">
+    <link rel="stylesheet" href="../src/CyclesWindow.css">
+</head>
+<body>
+<div class="container">
+    <div class="container-top">
+        <div class="ct-left">
+                <span class="material-symbols-outlined title-icon">
+                    menu_book
+                    </span>
+            <span class="title-text">
+                    Mamoun
+                </span>
+        </div>
+        <div class="ct-middle">
+            <span class="title-text title-text2">
+                    classes
+                </span>
+        </div>
+        <div class="ct-right">
+            <span class="material-symbols-outlined title-icon">
+                    more_vert
+                    </span>
+        </div>
+    </div>
+    <div class="container-Class container-cycles">
+        <div class="cy-left">
+            <div class ="cycle-item">
+                <div class="cy-it-left">
+                    <span  class="material-symbols-outlined cim-icon2">
+                    delete
+                    </span>
+                    <span  class="material-symbols-outlined cim-icon2">
+                    edit
+                    </span>
+                </div>
+                <div class="cy-it-right">
+                    <p class="big-text">Cycle on 29.11.2022</p>
+                    <div class="small-container">
+                        <p class="small-text">3 lesson added</p>
+                        <p class="small-text">total of 7 hours </p>
+                    </div>
+                </div>
+            </div>
+            <div class="cycle-item">
+                <div class="cy-it-left"></div>
+                <div class="cy-it-right">
+                    <p class="big-text">Cycle on 29.11.2022</p>
+                    <div class="small-container">
+                        <p class="small-text">3 lesson added</p>
+                        <p class="small-text">total of 7 hours </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="cy-right">
+            <div class="class-item input-container-cycle ">
+                <span class="input-name" style="color: white"> Name :</span>
+                <input type="text" class="input-text"/>
+                <div class="button in-btn1"> Add</div>
+                <div class="button" onClick={this.props.onCancel}>Cancel</div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>
