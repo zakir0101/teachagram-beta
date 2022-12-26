@@ -127,7 +127,6 @@
      top:40px;
      right: 0px;
      background-color: var(--navbar);
-     z-index: 1;
 
  }
 
@@ -193,11 +192,8 @@
  }
 
  .class-item{
-     min-width:230px;
-
-     /*height: 250px;*/
-
-     height: fit-content;
+     width:230px;
+     height: 250px;
      display: flex;
      flex-direction: column;
      align-items: center;
@@ -213,6 +209,7 @@
  }
  .cim-top-top{
      width: 100%;
+     flex-basis: 15%;
      color: #423F3E;
      display: flex;
      flex-direction: row;
@@ -232,8 +229,7 @@
      color:var(--cardBText);
  }
  .cim-top{
-     width: 100%;
-     text-align: center;
+     flex-basis: 60%;
      /*width: 100%;*/
      font-size :128px;
      color: var(--cardTText);
@@ -243,16 +239,14 @@
 
  .cim-bottom{
      width: 100%;
+     flex-basis: 50%;
      background-color: var(--cardBottom) ;
      color : var(--cardBText);
      display: flex;
      justify-content: center;
      align-items: center ;
-     padding: 16px 0;
  }
- .add-button-container{
-     height: 250px;
- }
+
  .add-button{
      width : 82px;
      height : 82px;
@@ -270,15 +264,13 @@
      font-size: 41px;
  }
 
- .add {
-     height: 250px;
-
+ .class-item.add {
      justify-content: center;
      align-items: center;
      background-color: inherit;
 
  }
- .add:hover{
+ .class-item.add:hover{
      border: none;
  }
  .button{
@@ -311,29 +303,7 @@
  }
  .input-container{
      border:3px solid;
-     padding-bottom: 18px;
  }
-
-
- /*332 */
- @media only screen and (max-width: 760px) {
-    .class-item {
-        width: 45%;
-        max-width: 45%;
-    }
- }
-
- /*332 */
- @media only screen and (max-width: 510px) {
-     .class-item {
-         width: 95%;
-         max-width: 95%;
-         min-width: auto;
-     }
- }
-
-
-
 
 
 
@@ -352,24 +322,19 @@
      /*flex-basis: 50%;*/
 
      /*background-color: teal;*/
-     max-width: 40%;
-     width:40%;
-     min-width:390px ;
      display: flex;
      flex-direction: column;
      align-items: start;
      flex-wrap: wrap;
      padding-bottom: 16px;
  }
-
  .cy-right{
      display: flex;
      flex-direction: row;
      justify-content: center;
      align-items: start;
-     max-width: 40%;
-     width:40%;
-     min-width:150px ;
+     flex-basis: 50%;
+     height: 100%;
      /*background-color: goldenrod;*/
      padding: 8px 0px;
 
@@ -381,7 +346,7 @@
 
  .cycle-item{
      margin: 16px 8px 0 0;
-     width: 90%;
+     width: 300px;
      display: flex;
      flex-direction: row;
      border-top-right-radius: 24px;
@@ -405,7 +370,10 @@
      padding-right: 16px;
  }
 
-
+ .cy-it-left > .cycle-item:last-child{
+     margin-bottom: 16px ;
+     background-color: goldenrod;
+ }
 
  .big-text{
      color: var(--cardBText);
@@ -442,21 +410,16 @@
  }
 
 
-
  @media only screen and (max-width: 643px) {
 
 
      .cy-left{
          width: 100%;
-         max-width: none;
-         min-width: auto;
 
      }
      .cy-right{
+         flex-basis: 100%;
          width:100%;
-
-         max-width: none;
-         min-width: auto;
      }
 
      .cycle-item{
@@ -464,20 +427,17 @@
      }
  }
 
- /*@media only screen and (max-width: 330px) {*/
+ @media only screen and (max-width: 330px) {
 
 
- /*    .small-container {*/
- /*        margin-top: 0px;*/
- /*    }*/
+     .small-container {
+         margin-top: 0px;
+     }
 
-
- /*}*/
-
-
-
-
-
+     /*.cycle-item {*/
+     /*    width: auto;*/
+     /*}*/
+ }
 
 
 
@@ -487,11 +447,7 @@
 
 
 
-
-
-
-
- /*Lessons  CSS*/
+    /*Lessons  CSS*/
 
  .container-lessons{
      flex-wrap: wrap;
@@ -503,9 +459,9 @@
      max-width: 65%;
      display: flex;
      padding : 24px;
-     padding-top: 4px;
      align-items: center;
      justify-content: center;
+     background-color: gold;
 
  }
 
@@ -517,17 +473,18 @@
      padding : 24px;
      align-items: center;
      justify-content: center;
+     background-color: teal;
 
  }
 
 
- .lesson-container{
-     width: 100%;
-     display: flex;
-     flex-direction: row;
-     flex-wrap: wrap;
-     justify-content: center;
- }
+.lesson-container{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
 
 
 
@@ -547,21 +504,20 @@
 
  .li-top{
      width: 100%;
-     flex-basis : 100%;
+     height: 60%;
      display: flex;
      flex-direction: column;
-     justify-content: center;
+     justify-content: end;
      align-items: center;
  }
  .text-top{
      color:var(--cardTText);
      font-size: 24px;
+     margin-bottom: 16px;
  }
  .li-bottom{
      width:100%;
-     height:fit-content ;
-     padding: 8px 0;
-
+     height:66px ;
      color:var(--cardBText);
      display: flex;
      align-items: center;
@@ -589,7 +545,6 @@
  .input-container-lesson
  {
      height: auto;
-     width: 80%;
  }
 
  .les-btn{

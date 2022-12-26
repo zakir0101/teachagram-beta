@@ -22,8 +22,7 @@ class App extends React.Component {
         this.setTitle = this.setTitle.bind(this);
         this.setTheme = this.setTheme.bind(this);
         this.root = document.querySelector(':root');
-        themeStandard(this.root)
-        themeWhiteBlue(this.root)
+        themeBlueBurbel(this.root)
         this.themes = ["Standard", "Braun", "Dark Blue",
             "Light Blue", "White Blue", "Blue Burbel"]
     }

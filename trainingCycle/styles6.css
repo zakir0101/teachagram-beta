@@ -10,8 +10,19 @@
      --cardBottom: #423F3E ;
      --cardTText: #423F3E;
      --cardBText: #fff;
+
  }
 
+    /*White Blue */
+ :root {
+     --navbar: #002E94 ;
+     --navbarText: #FFE7CC;
+     --background: #FFE7CC;
+     --cardTop: #E1CEB5;
+     --cardBottom: #083AA9;
+     --cardTText: #002E94;
+     --cardBText: #FFE7CC;
+ }
 
 
  *{
@@ -62,6 +73,7 @@
      background-color: var(--navbar);
      display:flex;
      flex-direction: row;
+     flex-shrink: 0;
 
  }
  .ct-left{
@@ -115,24 +127,36 @@
      top:40px;
      right: 0px;
      background-color: var(--navbar);
+     z-index: 1;
 
  }
 
  .link{
-     color : var(--cardBottom);
+     color : var(--navbarText);
      font-size: 17px;
      padding:8px;
      width: 100%;
  }
+ .link:hover{
+     color:var(--cardBText);
+ }
 
- @media only screen and (max-width: 332px) {
-     .ct-right{
-         flex-basis: 0%;
-         display: none;
+   /*332 */
+ @media only screen and (max-width: 643px) {
+
+     .popup{
+         top:48px;
      }
+     .container-top{
+         height: 48px;
+
+     }
+
      .ct-middle{
-         flex-basis:85% ;
          justify-content: end;
+     }
+     .title-text2{
+         margin-right: 0px;
      }
 
  }
@@ -195,12 +219,14 @@
 
  }
  .cim-icon2{
-     color: #423F3E;
+     /*color: #423F3E;*/
+     color: var(--cardBottom);
      margin-right: 6px;
      margin-top: 6px;
      margin-bottom: 6px;
  }
  .cim-icon2:hover{
+     /*color:var(--cardBText);*/
      color:var(--cardBText);
  }
  .cim-top{
@@ -256,8 +282,8 @@
      width: 50%;
      border-radius: 24px;
      margin-top: 16px;
-     background-color: var(--cardTop);
-     color: white;
+     background-color: var(--cardBottom);
+     color:var(--cardBText);
  }
  .button:hover{
      background-color: var(--navbar);
@@ -285,6 +311,13 @@
 
 
 
+
+
+
+
+
+
+
    /*  Cycle Window  */
 
 
@@ -297,21 +330,27 @@
      /*flex-basis: 50%;*/
 
      /*background-color: teal;*/
+     max-width: 40%;
+     width:40%;
+     min-width:390px ;
      display: flex;
      flex-direction: column;
      align-items: start;
      flex-wrap: wrap;
      padding-bottom: 16px;
+     background-color: teal;
  }
  .cy-right{
      display: flex;
      flex-direction: row;
      justify-content: center;
      align-items: start;
-     flex-basis: 50%;
-     height: 100%;
+     max-width: 40%;
+     width:40%;
+     min-width:150px ;
      /*background-color: goldenrod;*/
      padding: 8px 0px;
+     background-color: goldenrod;
 
 
  }
@@ -321,12 +360,12 @@
 
  .cycle-item{
      margin: 16px 8px 0 0;
-     width: 300px;
+     width: 90%;
      display: flex;
      flex-direction: row;
      border-top-right-radius: 24px;
      border-bottom-right-radius: 24px;
-     background-color:var(--cardTop) ;
+     background-color:var(--cardBottom) ;
 
  }
 
@@ -336,7 +375,7 @@
      justify-content: space-between;
      align-items: center;
      width: 33px;
-     background-color: var(--cardBottom);
+     background-color: var(--cardTop);
  }
  .cy-it-right{
      height: 100%;
@@ -362,6 +401,8 @@
      display: flex;
      flex-direction: row;
      flex-wrap: wrap;
+     margin-bottom: 8px;
+
 
  }
  .small-text{
@@ -385,24 +426,174 @@
 
  @media only screen and (max-width: 643px) {
 
+
      .cy-left{
          width: 100%;
+         max-width: none;
+         min-width: auto;
 
      }
      .cy-right{
-         flex-basis: 100%;
          width:100%;
+
+         max-width: none;
+         min-width: auto;
+     }
+
+     .cycle-item{
+         width: 96%;
      }
  }
 
- @media only screen and (max-width: 330px) {
+ /*@media only screen and (max-width: 330px) {*/
 
-     .small-container {
-         margin-top: 0px;
+
+ /*    .small-container {*/
+ /*        margin-top: 0px;*/
+ /*    }*/
+
+
+ /*}*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ /*Lessons  CSS*/
+
+ .container-lessons{
+     flex-wrap: wrap;
+ }
+
+ .container-left{
+     width:65%;
+     min-width: 380px;
+     max-width: 65%;
+     display: flex;
+     padding : 24px;
+     padding-top: 4px;
+     align-items: center;
+     justify-content: center;
+
+ }
+
+ .container-right{
+     min-width: 100px;
+     width: 35%;
+     max-width: 35%;
+     display: flex;
+     padding : 24px;
+     align-items: center;
+     justify-content: center;
+
+ }
+
+
+ .lesson-container{
+     width: 100%;
+     display: flex;
+     flex-direction: row;
+     flex-wrap: wrap;
+     justify-content: center;
+ }
+
+
+
+ .lesson-item{
+     width:142px;
+     height: 142px;
+     display: flex;
+     flex-direction: column;
+     border-top-left-radius : 24px;
+     border-top-right-radius : 24px  ;
+     background : var(--cardTop);
+     padding-top: 16px;
+     margin: 4px;
+     position : relative;
+
+ }
+
+ .li-top{
+     width: 100%;
+     height: 60%;
+     display: flex;
+     flex-direction: column;
+     justify-content: end;
+     align-items: center;
+ }
+ .text-top{
+     color:var(--cardTText);
+     font-size: 24px;
+     margin-bottom: 16px;
+ }
+ .li-bottom{
+     width:100%;
+     height:66px ;
+     color:var(--cardBText);
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     background-color: var(--cardBottom);
+
+ }
+
+ .li-iconL{
+     font-size: 32px;
+     color:var(--cardBottom) ;
+     position: absolute;
+     top:6px;
+     left:6px;
+ }
+
+ .li-iconR{
+     left:auto;
+     right: 6px;
+ }
+ .li-iconL:hover{
+     color:var(--cardBText);
+ }
+
+ .input-container-lesson
+ {
+     height: auto;
+     width: 80%;
+ }
+
+ .les-btn{
+     margin-bottom: 16px;
+ }
+ .les-name{
+     margin-top: 0px;
+     width:100%;
+     text-align: center;
+ }
+ @media only screen and (max-width: 720px) {
+
+ }
+ @media only screen and (max-width: 615px) {
+     .container-left{
+         max-width: none;
+         min-width: auto;
+         width: 100%;
      }
-
-     .cycle-item {
-         width: auto;
+     .container-right{
+         max-width: none;
+         min-width: auto;
+         width: 100%;
      }
  }
+
 

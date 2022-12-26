@@ -34,8 +34,8 @@ class   Appbar extends React.Component{
         let appbar;
         if (this.state.popShow)
             appbar = <div className="popup">
-                {this.themes.map(th =>  <a onClick={event =>
-                    this.props.setTheme(event,th)} key={th} className="link">{th}</a>) }
+                {this.themes.map(th =>  <a onClick={event =>{ this.onMore(event)
+                    this.props.setTheme(event,th);}} key={th} className="link">{th}</a>) }
                      </div>
         else
             appbar = <div></div>

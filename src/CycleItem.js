@@ -79,8 +79,8 @@ class AddCycle extends React.Component {
 
         return (
             <div ref={this.myRef} className="class-item input-container input-container-cycle">
-                <span className="input-name" style={{color: "white"}}>Name :</span>
-                <input value={this.state.input.name} onChange={this.onInput} type="text" className="input-text"/>
+                <span className="input-name"  >Name :</span>
+                <input style={{backgroundColor: "white"}} value={this.state.input.name} onChange={this.onInput} type="text" className="input-text"/>
                 <div className="button in-btn1" onClick={e => {
                     if (this.props.Edit)
                         this.props.onEditOk(e, this.oldInput, this.state.input);
