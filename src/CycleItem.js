@@ -22,13 +22,16 @@ class CycleItem extends React.Component {
 
         let cycle = this.state.cycle;
         return (
-            <div  className="cycle-item" onClick={event => this.props.setTitle(2)}>
+            <div className="cycle-item" onClick={event => {
+                this.props.setActiveCycle(this.props.cycle);
+                this.props.setTitle(2,"Cycle "+this.props.cycle.date);
+            }}>
                 <div className="cy-it-left">{imageDelete}{imageEdit} </div>
                 <div className="cy-it-right">
-                    <p className="big-text">{cycle.name} on {cycle.date}</p>
+                    <p className="big-text">Cycle on {cycle.date}</p>
                     <div className="small-container">
-                        <p className="small-text">{cycle.lessons} lesson added</p>
-                        <p className="small-text">total of {cycle.hours} hours </p>
+                        <p className="small-text">{cycle.count} lesson added</p>
+                        <p className="small-text">total of {cycle.duration} hours </p>
                     </div>
                 </div>
 
@@ -42,19 +45,9 @@ class AddCycle extends React.Component {
     constructor(props) {
         super(props);
         if (!this.props.cycle)
-            this.state = {input: {name: ""}};
+            this.state = {input: {date: new Date().toJSON().slice(0, 10)}};
         else
-            this.state={input: this.props.cycle}
-
-        if (this.props.cycle) {
-            this.oldInput = {
-                name: this.state.input.name,
-                date: this.state.input.date,
-                lessons: this.state.input.lessons,
-                hours: this.state.input.hours
-            }
-        }
-
+            this.state = {input: this.props.cycle}
         this.onInput = this.onInput.bind(this)
         this.myRef = React.createRef()
 
@@ -69,8 +62,7 @@ class AddCycle extends React.Component {
 
         this.setState(s => ({
             input: {
-                name: e.target.value,
-
+                date: e.target.value,
             }
         }))
     }
@@ -79,13 +71,14 @@ class AddCycle extends React.Component {
 
         return (
             <div ref={this.myRef} className="class-item input-container input-container-cycle">
-                <span className="input-name"  >Name :</span>
-                <input style={{backgroundColor: "white"}} value={this.state.input.name} onChange={this.onInput} type="text" className="input-text"/>
+                <span className="input-name">Date :</span>
+                <input style={{backgroundColor: "white"}} value={this.state.input.date} onChange={this.onInput}
+                       type="date" className="input-text"/>
                 <div className="button in-btn1" onClick={e => {
                     if (this.props.Edit)
-                        this.props.onEditOk(e, this.oldInput, this.state.input);
+                        this.props.onEditOk(e, this.state.input.date);
                     else
-                        this.props.onOk(e, this.state.input.name);
+                        this.props.onOk(e, this.state.input.date);
                 }}> Add
                 </div>
                 <div className="button" onClick={this.props.onCancel}>Cancel</div>

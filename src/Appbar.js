@@ -10,14 +10,21 @@ class   Appbar extends React.Component{
         this.onMore=this.onMore.bind(this)
         this.themes = ["Standard" ,"Braun","Dark Blue",
             "Light Blue" , "White Blue" , "Blue Burbel"]
+        this.themes = ["White Blue" , "Blue Burbel" ,"logout"]
+
     }
 
     onMore(e){
         this.setState(s => ({popShow:!s.popShow}))
     }
 
-    render() {
-        console.log(MODE[this.props.title])
+    render(){
+        let user_title = "" ;
+        if(this.props.user.username) {
+            user_title = this.props.user.username;
+            user_title = user_title.charAt(0).toUpperCase() + user_title.slice(1);
+        }
+
 
         this.image = <span className="material-symbols-outlined title-icon">
                     menu_book
@@ -25,11 +32,11 @@ class   Appbar extends React.Component{
         this. image2 =   <span  className="material-symbols-outlined title-icon" onClick={this.onMore}>
                     more_vert
                     </span>
-        this. appName = <span className="title-text">
-                    Mamoun
+        this. appName = <span onClick={event => this.props.setTitle(0,"home")}  className="title-text">
+                    {user_title }
                 </span>
         this. title = <span className="title-text title-text2">
-                    {MODE[ this.props.title ]}
+                    {this.props.title.text}
                 </span>
         let appbar;
         if (this.state.popShow)

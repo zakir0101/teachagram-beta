@@ -2,6 +2,7 @@ import React, {useEffect} from "react";
 import {AddCycle, CycleItem} from "./CycleItem";
 import {AddButton, AddItem} from "./ClassItem";
 import ReactDom from "react-dom";
+import {address} from "./mode";
 
 class CycleWindow extends React.Component {
     constructor(props) {
@@ -10,32 +11,32 @@ class CycleWindow extends React.Component {
             onAdd: false,
             onEdit: false,
             Edit: null,
-
-            cycles: [
-                {
-                    name: "Cycle1",
-                    date: "25.03.2022",
-                    lessons: 4,
-                    hours: 11
-                },
-                {
-                    name: "Cycle2",
-                    date: "25.03.2022",
-                    lessons: 5,
-                    hours: 22
-                },
-                {
-                    name: "Cycle3",
-                    date: "25.03.2022",
-                    lessons: 8,
-                    hours: 33
-                },
-                {
-                    name: "Cycle4",
-                    date: "25.03.2022",
-                    lessons: 2,
-                    hours: 5
-                }]
+            cycleList:[]
+            // cycles: [
+            //     {
+            //         name: "Cycle1",
+            //         date: "25.03.2022",
+            //         lessons: 4,
+            //         hours: 11
+            //     },
+            //     {
+            //         name: "Cycle2",
+            //         date: "25.03.2022",
+            //         lessons: 5,
+            //         hours: 22
+            //     },
+            //     {
+            //         name: "Cycle3",
+            //         date: "25.03.2022",
+            //         lessons: 8,
+            //         hours: 33
+            //     },
+            //     {
+            //         name: "Cycle4",
+            //         date: "25.03.2022",
+            //         lessons: 2,
+            //         hours: 5
+            //     }]
         }
 
         this.onAdd = this.onAdd.bind(this)
@@ -48,6 +49,34 @@ class CycleWindow extends React.Component {
 
     }
 
+    componentDidMount() {
+        this.getCycleList()
+    }
+    getCycleList(){
+        let msg = { type : 'cycle' ,command: 'get' , user_id : this.props.user.id ,
+                    class_id : this.props.activeClass.id}
+
+        let params = {
+            "method": "POST",
+            "mode" : "cors",
+            "headers": {
+                "Content-type" : "text/plain"
+                // "Content-Type": "application/json; charset=utf-8"
+            },
+            "body": JSON.stringify(msg)
+        }
+
+        fetch(address, params ).
+        then((response) => {
+            return  response.json()}).then
+        ((json) => {
+
+            this.setState(state =>state.cycleList = json.data)
+        });
+
+    }
+
+
 
     onAdd(e) {
 
@@ -57,17 +86,30 @@ class CycleWindow extends React.Component {
 
     }
 
-    onOk(e, name) {
+    onOk(e, date) {
         ReactDom.findDOMNode(this).scrollIntoView();
+        let msg = { type : 'cycle' ,command: 'add' ,date : date ,
+            user_id : this.props.user.id , class_id : this.props.activeClass.id}
 
-        let c = {
-            name: name,
-            date: new Date().toLocaleDateString(),
-            lessons: 4,
-            hours: 12
+        let params = {
+            "method": "POST",
+            "mode" : "cors",
+            "headers": {
+                "Content-type" : "text/plain"
+                // "Content-Type": "application/json; charset=utf-8"
+            },
+            "body": JSON.stringify(msg)
         }
-        this.state.cycles.push(c)
-        this.setState((state) => ({onAdd: false}))
+
+        fetch(address, params ).
+        then((response) => {
+            return  response.json()}).then
+        ((json) => {
+
+            this.setState(state =>( {cycleList : json.data , onAdd : false }))
+
+        });
+
     }
 
     onCancel(e) {
@@ -85,13 +127,29 @@ class CycleWindow extends React.Component {
     onDelete(e, cycle) {
         if (e)
             e.stopPropagation()
-        const index = this.state.cycles.findIndex(c => {
-            return c.name === cycle.name
-        });
-        if (index > -1) { // only splice array when item is found
-            this.state.cycles.splice(index, 1); // 2nd parameter means remove one item only
+
+        let msg = { type : 'cycle' ,command: 'del' , cycle_id:cycle.id ,
+            class_id : this.props.activeClass.id , user_id : this.props.user.id}
+
+        let params = {
+            "method": "POST",
+            "mode" : "cors",
+
+            "headers": {
+                "Content-type" : "text/plain"
+                // "Content-Type": "application/json; charset=utf-8"
+            },
+            "body": JSON.stringify(msg)
         }
-        this.update()
+
+        fetch(address, params ).
+        then((response) => {
+            return  response.json()}).then
+        ((json) => {
+            this.setState(state =>( {cycleList : json.data }))
+        });
+
+
     }
 
     onEdit(e, cycle) {
@@ -105,26 +163,34 @@ class CycleWindow extends React.Component {
         }))
     }
 
-    onEditOk(e, oldCycle, newCycle) {
+    onEditOk(e, new_date) {
         ReactDom.findDOMNode(this).scrollIntoView();
+        let msg = { type : 'cycle' ,command: 'edit' ,cycle_id :this.state.Edit.id,
+            class_id:this.props.activeClass.id ,
+            date : new_date, user_id : this.props.user.id}
 
-        console.log(oldCycle)
-        console.log(newCycle)
-        newCycle.date= oldCycle.date;
-        newCycle.hours= oldCycle.hours;
-        newCycle.lessons= oldCycle.lessons;
-        const cycles = this.state.cycles
-        const index = cycles.findIndex(c => {
-            return c.name === oldCycle.name
-        });
-        if (index > -1) { // only splice array when item is found
-            this.state.cycles.splice(index, 1, newCycle); // 2nd parameter means remove one item only
+        let params = {
+            "method": "POST",
+            "mode" : "cors",
+            "headers": {
+                // "Content-Type": "application/json; charset=utf-8"
+                "Content-type" : "text/plain"
+
+            },
+            "body": JSON.stringify(msg)
         }
-        this.setState((state) => ({
-            onAdd: false,
-            onEdit: false,
-            Edit: null
-        }))
+
+        fetch(address, params ).
+        then((response) => {
+            return  response.json()}).then
+        ((json) => {
+
+            this.setState(state => {
+                state.onEdit=false; state.Edit={} ; state.onAdd = false ;
+                state.cycleList = json.data ; this.forceUpdate()})
+        });
+
+
 
     }
 
@@ -134,9 +200,11 @@ class CycleWindow extends React.Component {
         return (
             <div className="container-Class container-cycles">
                 <div id="myId" className="cy-left">
-                    {this.state.cycles.map((c) =>
-                        <CycleItem cycle={c} key={c.name}
-                                   setTitle={this.props.setTitle} onDel={this.onDelete}
+                    {this.state.cycleList.map((c) =>
+                        <CycleItem cycle={c} key={c.date}
+                                   setTitle={this.props.setTitle}
+                                   setActiveCycle={this.props.setActiveCycle}
+                                   onDel={this.onDelete}
                                    onEdit={this.onEdit}
                         ></CycleItem>)}
                 </div>

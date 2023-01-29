@@ -1,8 +1,8 @@
 import React from "react";
 import ReactDom from "react-dom";
-import {AddCycle, CycleItem} from "./CycleItem";
 import {AddLesson, LessonItem} from "./LessonItem";
 import {AddButton} from "./ClassItem";
+import {address} from "./mode";
 
 class LessonWindow extends React.Component {
     constructor(props) {
@@ -21,8 +21,8 @@ class LessonWindow extends React.Component {
             onAdd: false,
             onEdit: false,
             Edit: null,
-
-            lessons: lessons
+            lessonList:[],
+            //lessons: lessons
         }
 
         this.onAdd = this.onAdd.bind(this)
@@ -35,6 +35,36 @@ class LessonWindow extends React.Component {
     }
 
 
+
+    componentDidMount() {
+        this.getLessonList()
+    }
+    getLessonList(){
+        let msg = { type : 'lesson' ,command: 'get' , user_id : this.props.user.id ,
+            cycle_id : this.props.activeCycle.id}
+
+        let params = {
+            "method": "POST",
+            "mode" : "cors",
+            "headers": {
+                "Content-type" : "text/plain"
+                // "Content-Type": "application/json; charset=utf-8"
+            },
+            "body": JSON.stringify(msg)
+        }
+
+        fetch(address, params ).then
+        ((response) => {
+            return  response.json()}).then
+        ((json) => {
+            this.setState(state =>state.lessonList = json.data)
+        });
+
+    }
+
+
+
+
     onAdd(e) {
 
         this.setState((state) => ({
@@ -43,16 +73,39 @@ class LessonWindow extends React.Component {
 
     }
 
-    onOk(e, name, hours) {
+    onOk(e, lesson) {
+        let date = lesson.date;
+        let hours = lesson.duration
         ReactDom.findDOMNode(this).scrollIntoView();
 
-        let l = {
-            name: name,
-            date: new Date().toLocaleDateString(),
-            hours: 4
+
+        let msg = { type : 'lesson' ,command: 'add' ,date : date ,
+           duration : hours , user_id : this.props.user.id ,
+            class_id : this.props.activeClass.id,
+            cycle_id : this.props.activeCycle.id}
+
+        let params = {
+            "method": "POST",
+            "mode" : "cors",
+            "headers": {
+                "Content-type" : "text/plain"
+                // "Content-Type": "application/json; charset=utf-8"
+            },
+            "body": JSON.stringify(msg)
         }
-        this.state.lessons.push(l)
-        this.setState((state) => ({onAdd: false}))
+
+        fetch(address, params ).then
+        ((response) => {
+            return  response.json()}).then
+        ((json) => {
+
+            this.setState(state =>( {lessonList : json.data , onAdd : false }))
+
+        });
+
+
+
+
     }
 
     onCancel(e) {
@@ -69,13 +122,29 @@ class LessonWindow extends React.Component {
     onDelete(e, lesson) {
         if (e)
             e.stopPropagation()
-        const index = this.state.lessons.findIndex(l => {
-            return l.name === lesson.name
-        });
-        if (index > -1) { // only splice array when item is found
-            this.state.lessons.splice(index, 1); // 2nd parameter means remove one item only
+        console.log("user_id  :"+this.props.user.id)
+        console.log("cycle_id  :"+this.props.activeCycle.id)
+        let msg = { type : 'lesson' ,command: 'del' ,
+             lesson_id : lesson.id , cycle_id:this.props.activeCycle.id
+            , user_id : this.props.user.id}
+
+        let params = {
+            "method": "POST",
+            "mode" : "cors",
+            "headers": {
+                "Content-type" : "text/plain"
+                // "Content-Type": "application/json; charset=utf-8"
+            },
+            "body": JSON.stringify(msg)
         }
-        this.update()
+
+        fetch(address, params ).
+        then((response) => {
+            return  response.json()}).then
+        ((json) => {
+            this.setState(state => ({lessonList : json.data }))
+
+        });
     }
 
     onEdit(e, lesson) {
@@ -89,25 +158,38 @@ class LessonWindow extends React.Component {
         }))
     }
 
-    onEditOk(e, oldLesson, newLesson) {
+    onEditOk(e,  newLesson) {
         ReactDom.findDOMNode(this).scrollIntoView();
 
-        newLesson.date = oldLesson.date;
-        newLesson.hours = oldLesson.hours;
-        const lessons = this.state.lessons
-        const index = lessons.findIndex(l => {
-            return l.name === oldLesson.name
-        });
-        if (index > -1) { // only splice array when item is found
-            lessons.splice(index, 1, newLesson); // 2nd parameter means remove one item only
+        let msg = { type : 'lesson' ,command: 'edit' ,
+            lesson_id :this.state.Edit.id,
+            cycle_id:this.props.activeCycle.id ,
+            date : newLesson.date ,duration : newLesson.duration,
+            user_id : this.props.user.id}
+
+        let params = {
+            "method": "POST",
+            "mode" : "cors",
+            "headers": {
+                "Content-type" : "text/plain"
+                // "Content-Type": "application/json; charset=utf-8"
+            },
+            "body": JSON.stringify(msg)
         }
-        this.setState((state) => ({
-            onAdd: false,
-            onEdit: false,
-            Edit: null
-        }))
+
+        fetch(address, params ).
+        then((response) => {
+            return  response.json()}).then
+        ((json) => {
+
+            this.setState(state => {
+                state.onEdit=false; state.Edit={} ; state.onAdd = false ;
+                state.lessonList = json.data ; this.forceUpdate()})
+        });
 
     }
+
+
 
     render() {
 
@@ -115,8 +197,8 @@ class LessonWindow extends React.Component {
         return <div className="container-Class container-cycles container-lessons ">
             <div className="container-left">
                 <div className="lesson-container">
-                    {this.state.lessons.map((l) =>
-                        <LessonItem lesson={l} key={l.name}
+                    {this.state.lessonList.map((l) =>
+                        <LessonItem lesson={l} key={l.id}
                                     setTitle={this.props.setTitle} onDel={this.onDelete}
                                     onEdit={this.onEdit}
                         ></LessonItem>)}
